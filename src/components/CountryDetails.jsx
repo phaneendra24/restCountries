@@ -1,44 +1,60 @@
 import { useParams } from "react-router-dom";
+import { setLogger, useQuery } from "react-query"
+import { useState } from "react";
+import { useEffect } from "react";
+
+async function fetch_data(countryCode) {
+    console.log(countryCode);
+    const res = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`)
+    return res.json()
+}
+
+
 function CountryDetails() {
-    let countryData = []
     const { countryCode } = useParams()
-    callApi()
-    async function callApi() {
-        let response = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`)
-        let data1 = await response.json()
-        countryData = await data1
-        console.log(countryData);
-        let countryDataDiv = countryData.map(item => {
+    const { data, status } = useQuery('call_stuff', () => { return fetch_data(countryCode) })
+
+    console.log(data);
+    country_data(data)
+    function country_data(data) {
+
+        data.map(item => {
+
             let countryName = item.name.common
             let countryFlag = item.flags.svg
             let population = (item.population).toLocaleString()
             let Region = item.region
             let capital = item.capital
+            let Nativename = item.altSpellings[1]
+            let subRegion = item.subregion
+            let toplevelDomain = item.tld
+            let currencies = item.currencies
+            let langugaes = item.languages
+
             return (
                 <>
-                    <div className="bg-white shadow-xl mb-10 w-5/5 animate-pulse">
-                        <img src={countryFlag} alt="" className="w-full" />
+                    <img src={countryFlag} className="w-1/4" />
 
-                        <div className="pl-5 pr-5 pb-8">
-                            <h1 className="font-bold">{countryName}</h1>
-                            <h3 className="font-semibold">population : <span className="font-light text-base">{population}</span></h3>
-                            <h3 className="font-semibold">Region : <span className="font-light text-base" >{Region}</span></h3>
-                            <h3 className="font-semibold">Capital : <span className="font-light text-base">{capital}</span></h3>
-                        </div>
-                    </div>
                 </>
             )
+
         })
-        return countryDataDiv
     }
+
+
+
+
+
     return (
-        <>
-            <h1>hello world! {countryCode}</h1>
+        <div className=" w-full h-1/3  bg-orange-500" >
             {
-                callApi
+                //  country_data
             }
-        </>
+
+
+        </div>
     )
 }
 
 export { CountryDetails }
+
