@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 
-
-function Each_coutry_data({ data }) {
-    let CountryDiv = data.map(item => {
+function All_coutry_data({ data }) {
+    let countryDiv = data.map(item => {
         let countryName = item.name.common
         let countryFlag = item.flags.svg
         let population = (item.population).toLocaleString()
         let Region = item.region
-        let capital = item.capital
+        let capital = item.capital  
         let countryCode = item.cca3
         return (
             <>
@@ -30,7 +29,7 @@ function Each_coutry_data({ data }) {
     return (
         <>
             {
-                CountryDiv
+                countryDiv
             }
 
         </>
@@ -38,4 +37,4 @@ function Each_coutry_data({ data }) {
 }
 
 
-export { Each_coutry_data }
+export { All_coutry_data }

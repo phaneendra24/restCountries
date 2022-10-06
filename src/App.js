@@ -1,9 +1,7 @@
-import { Navbar } from "./components/Navbar";
 import { CountriesGrid } from "./components/CountriesGrid";
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { CountryDetails } from "./components/CountryDetails";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { useState } from "react";
 const queryclient = new QueryClient()
 function App() {
 
@@ -12,11 +10,10 @@ function App() {
 
       <BrowserRouter>
 
-        <div className="App h-screen bg-white dark:slate-800">
-          <Navbar />
+        <div className="App  dark:slate-800">
           <Routes>
             <Route path="/" element={<CountriesGrid />} />
-            <Route path='/countryDetails/:countryCode' element={<CountryDetails />} />
+            {/* <Route path='/countryDetails/:countryCode' element={<CountryDetails />} /> */}
           </Routes>
         </div >
       </BrowserRouter>
