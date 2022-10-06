@@ -1,51 +1,56 @@
 import { Searchbar, search_fn } from "./Searchbar";
 import { Navbar } from "./Navbar";
-import { useQuery } from "react-query"
+import { useQuery } from "react-query";
 
 import { useState } from "react";
 
-import { All_coutry_data } from './All_country_data'
+import { All_coutry_data } from "./All_country_data";
 import { useEffect } from "react";
 
-
-
 function CountriesGrid() {
-    const [name,setName]= useState("")
-    const [data,setdata] = useState([])
+  const [name, setName] = useState("");
+  const [data, setdata] = useState([]);
 
-    const fetch_data = async (name) => {
-        if(name===""){
-            const res = await fetch("https://restcountries.com/v3.1/all/")
-            const val= await res.json()
-            setdata(prev => val)
-        }
-        else{
-            // console.log(name);
-            const res = await fetch(`https://restcountries.com/v3.1/name/${name}/`)
-            const val = await res.json()
-            if (data===val) {
-                return null
-            }
-            else{
-                setdata(prev => val)
-            }
-        }
-    }
+  const fetch_data = async () => {
+      const res = await fetch("https://restcountries.com/v3.1/all/");
+      const val = await res.json();
+      setdata((prev) => val);
+  };
+
+  
+
+
+
+
+
+//   function similar(item) {
+    // for (let i = 0; i < name.length; i++) {
+    // if (item.common.name[0] === name[0]) {
+    // return item.name.common === "Spain";
     
-    useEffect(()=>{
-        fetch_data(name)
-    })
-    return (
-        <>
-            <div className="flex flex-col ">
+    //   const h = data.filter(similar);
+    //   console.log(h);
+    //   setdata(h)
+    // }
+//   }
 
-                <div className="fixed top-0 mb-7 bg-white">
-                    <Navbar />
-                    <Searchbar data={data} setName={setName} />
-                </div>
+//   })
 
-                <div className="ml-14 mr-14 mt-44 sm:grid grid-cols-4 gap-14 justify-center" >
-                    {/* {
+
+  useEffect(() => {
+    fetch_data();
+  }, []);
+
+  return (
+    <>
+      <div className="flex flex-col ">
+        <div className="fixed top-0 mb-7 bg-white">
+          <Navbar />
+          <Searchbar data={data} setName={setName} setdata={setdata} name={name}/>
+        </div>
+
+        <div className="ml-14 mr-14 mt-44 sm:grid grid-cols-4 gap-14 justify-center">
+          {/* {
                         status === 'loading' && (
 
                             <div role="status">
@@ -59,18 +64,14 @@ function CountriesGrid() {
                         )
                     }
                     { */}
-                        {/* status === 'success' && ( */}
-                            <All_coutry_data data={data}  />
-                        {/* ) */}
-                    {/* } */}
-                </div>
-
-            </div>
-        </>
-    )
-
-
+          {/* status === 'success' && ( */}
+          <All_coutry_data data={data} name={name} setName={setName} setdata={setdata}/>
+          {/* ) */}
+          {/* } */}
+        </div>
+      </div>
+    </>
+  );
 }
 
-
-export { CountriesGrid }   
+export { CountriesGrid };

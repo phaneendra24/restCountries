@@ -11,10 +11,11 @@ import { useQuery } from "react-query"
 
 
 
-function Searchbar({ setName }) {
-    async function search_fn(e) {
-        setName(e.target.value)
-        // let data = await fetch_data(e.target.value)
+function Searchbar({ setdata,data,setName,name}) {
+     function search_fn(e) {
+        let evalue = e.target.value
+        let value = evalue.charAt(0).toUpperCase() + evalue.slice(1)
+        setName(value)
     }
 
     return (
