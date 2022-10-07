@@ -21,11 +21,11 @@ async function fetch_data(countryCode) {
 
     const countryCode = useParams().countryCode
     useEffect(()=>{
-        let data = fetch_data(countryCode)
+    fetch_data(countryCode)
         .then(res=>{
             setcountry(res)
         })    
-    },[])
+    },[countryCode])
     console.log();
     console.log(country);
 

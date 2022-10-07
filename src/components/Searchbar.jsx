@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query"
 
 function Searchbar({setName,setRegion}) {
      function search_fn(e) {

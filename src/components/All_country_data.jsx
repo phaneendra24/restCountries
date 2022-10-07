@@ -6,29 +6,28 @@ function All_coutry_data({ data, name,region }) {
   let [newdata, setnewdata] = useState([]);
   useEffect(() => {
     setnewdata(data);
-  });
+  },[data]);
   let [filteredData, setfiltdata] = useState([]);
 
-  function regionalfilter(i) {
-    if (i.region === region) {
-      return i.region === region;
-    }
-  }
+  
 
   useEffect(() => {
+    function regionalfilter(i) {
+      if (i.region === region) {
+        return i.region === region;
+      }
+    }
     if (region !== "obj") {
       let regionalData = newdata.filter(regionalfilter);
-      filteredData = regionalData;
-      setfiltdata(filteredData);
+      setfiltdata(regionalData);
     } else if (region === "obj") {
-      filteredData = data;
-      setfiltdata(filteredData);
+      setfiltdata(data);
     }
-  }, [region]);
+  }, [region,data,newdata]);
 
   useEffect(() => {
     if (name.length !== 0) {
-      filteredData = newdata.filter(searchFilter);
+      let filteredData = newdata.filter(searchFilter);
       function searchFilter(item) {
         if (name !== "") {
           return item.name.common.includes(`${name}`);
@@ -38,7 +37,7 @@ function All_coutry_data({ data, name,region }) {
     } else {
       setfiltdata(data);
     }
-  }, [name]);
+  }, [name,data,newdata]);
   return (
     <>
       {
@@ -53,8 +52,6 @@ function All_coutry_data({ data, name,region }) {
         let countryCode = item.cca3;
         return (
           <div key={i}>
-          <div>
-
             <Link to={`/CountryDetails/${countryCode}`}>
               <div className="bg-white shadow-xl mb-10 w-5/5 h-80 hover:scale-105 duration-200" key={i} >
                 <img src={countryFlag} alt="" className="w-full h-48" />
@@ -75,7 +72,6 @@ function All_coutry_data({ data, name,region }) {
                 </div>
               </div>
             </Link>
-          </div>
           </div>
         );
       })
