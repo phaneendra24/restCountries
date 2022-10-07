@@ -52,11 +52,11 @@ function All_coutry_data({ data, name,region }) {
         let capital = item.capital;
         let countryCode = item.cca3;
         return (
-          <>
           <div key={i}>
+          <div>
 
             <Link to={`/CountryDetails/${countryCode}`}>
-              <div className="bg-white shadow-xl mb-10 w-5/5 h-80 hover:scale-105 duration-200" >
+              <div className="bg-white shadow-xl mb-10 w-5/5 h-80 hover:scale-105 duration-200" key={i} >
                 <img src={countryFlag} alt="" className="w-full h-48" />
                 <div className="pl-5 pr-5 pb-8">
                   <h1 className="font-bold">{countryName}</h1>
@@ -76,7 +76,7 @@ function All_coutry_data({ data, name,region }) {
               </div>
             </Link>
           </div>
-          </>
+          </div>
         );
       })
       :(<>

@@ -59,6 +59,7 @@ function CountriesGrid({ theme, setTheme }) {
                 setName={setName}
                 setdata={setdata}
                 region={region}
+                key={data.caa3}
               />
             )}
           </div>
