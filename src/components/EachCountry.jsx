@@ -9,7 +9,6 @@ function EachCountry({ data, flag }) {
         let population = item.population.toLocaleString();
         let Region = item.region;
         let capital = item.capital;
-        let countryCode = item.cca3;
         return (
           <>
               <div className="bg-white shadow-xl mb-10 w-4/5 h-2/3 flex  ">
