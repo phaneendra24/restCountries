@@ -21,6 +21,7 @@ function CountryDetails() {
       setcountry(res);
     });
   }, [countryCode]);
+  
 
   return (
     <>
@@ -36,6 +37,13 @@ function CountryDetails() {
             let subregion = item.subregion;
             let capital = item.capital;
             let borders = item.borders;
+            let val = Object.keys(item.currencies)[0];
+            let languages = item.languages;
+            let language_array = [];
+            for (let [value] of Object.entries(languages)) {
+              language_array.push(value);
+            }
+
             return (
               <div
                 className=" mb-10 w-6/6 h-2/3 flex flex-col lg:justify-between  lg:mx-12 mx-6"
@@ -50,77 +58,94 @@ function CountryDetails() {
                       stroke="currentColor"
                       className="w-6 h-6"
                     >
-                      <path
-                        d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"
-                      />
+                      <path d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z" />
                     </svg>
                     back
                   </div>
                 </Link>
 
                 <div className=" lg:flex lg:justify-evenly p-2">
-                  <img src={countryFlag} alt="" className="lg:w-3/12 sm:w-4/6" />
-                <div className=" flex flex-col justify-around my-8">
+                  <img
+                    src={countryFlag}
+                    alt=""
+                    className="lg:w-3/12 sm:w-4/6"
+                  />
+                  <div className=" flex flex-col justify-around my-8">
                     <div className=" font-bold text-xl ">
-                    <h1 className="font-bold">{countryName}</h1>
+                      <h1 className="font-bold">{countryName}</h1>
                     </div>
 
-                    <div className="">
-                    <h3 className="font-semibold">
-                      population :{" "}
-                      <span className="font-light text-base">{population}</span>
-                    </h3>
-                    <h3 className="font-semibold">
-                      Region :{" "}
-                      <span className="font-light text-base">{Region}</span>
-                    </h3>
-                    <h3 className="font-semibold">
-                      Sub region :{" "}
-                      <span className="font-light text-base">{subregion}</span>
-                    </h3>
-                    <h3 className="font-semibold">
-                      Capital :{" "}
-                      <span className="font-light text-base">{capital}</span>
-                    </h3>
-                    </div>
-
-                    <div className="">
-                    <h4 className="font-semibold flex   ">
-                      Border countires :{" "}
-                      <span className="font-light text-base">
-                        <div className="lg:flex">
-                          {borders ? (
-                            borders.map((item, i) => {
-                              return (
-                                <div key={i} className="">
-                                  <h3 className="w-20 h-8 shadow-xl flex justify-center">
-                                    {item}
-                                  </h3>
-                                </div>
-                              );
-                            })
-                            ) : (
-                                <>"No borders"</>
-                                )}
-                        </div>
-                      </span>
-                    </h4>
-                    </div>
-                </div>
                     <div className="">
                       <h3 className="font-semibold">
-                        Top level domain :{" "}
-                        <span className="font-light text-base">{item.tld}</span>
+                        population :{" "}
+                        <span className="font-light text-base">
+                          {population}
+                        </span>
                       </h3>
-                      <h3>
-                        Currencies :{" "}
-                        <span className="font-light text-base">{}</span>
+                      <h3 className="font-semibold">
+                        Region :{" "}
+                        <span className="font-light text-base">{Region}</span>
                       </h3>
-                      <h3>
-                        Languages :{" "}
-                        <span className="font-light text-base">{item.tld}</span>
+                      <h3 className="font-semibold">
+                        Sub region :{" "}
+                        <span className="font-light text-base">
+                          {subregion}
+                        </span>
+                      </h3>
+                      <h3 className="font-semibold">
+                        Capital :{" "}
+                        <span className="font-light text-base">{capital}</span>
                       </h3>
                     </div>
+
+                    <div className="">
+                      <h4 className="font-semibold flex   ">
+                        Border countires :{" "}
+                        <span className="font-light text-base">
+                          <div className="lg:flex">
+                            {borders ? (
+                              borders.map((item, i) => {
+                                return (
+                                  <div key={i} className="">
+                                    <h3 className="w-20 h-8 shadow-xl flex justify-center">
+                                      {item}
+                                    </h3>
+                                  </div>
+                                );
+                              })
+                            ) : (
+                              <>"No borders"</>
+                            )}
+                          </div>
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="">
+                    <h3 className="font-semibold">
+                      Top level domain :{" "}
+                      <span className="font-light text-base">{item.tld}</span>
+                    </h3>
+                    <h3>
+                      Currencies :{""}
+                      <span className="font-light text-base">
+                        {item.currencies[val].name}
+                        {"(" + item.currencies[val].symbol + ")"}
+                      </span>
+                    </h3>
+                    <h3 className="flex">
+                      Languages :{" "}
+                      <span className="font-light text-base flex">
+                        {language_array ? (
+                          language_array.map((item, i) => {
+                            return <div key={i}>{(i ? ", " : "") + item}</div>;
+                          })
+                        ) : (
+                          <>"No borders"</>
+                        )}
+                      </span>
+                    </h3>
+                  </div>
                 </div>
               </div>
             );

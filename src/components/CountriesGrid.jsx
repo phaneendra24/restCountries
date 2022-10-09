@@ -53,6 +53,7 @@ function CountriesGrid({ theme, setTheme }) {
                 <span className="sr-only">Loading...</span>
               </div>
             ) : (
+              
               // eslint-disable-next-line
               <All_coutry_data data={data} name={name} setName={setName} setdata={setdata} region={region} key={data.caa3}/>
             )}
