@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { Link } from "react-router-dom";
+import useStore from "../store";
 
 async function fetch_data(countryCode) {
   const response = await fetch(
@@ -14,6 +15,7 @@ async function fetch_data(countryCode) {
 
 function CountryDetails() {
   let [country, setcountry] = useState([]);
+  const newtheme = useStore((state) => state.theme);
 
   const countryCode = useParams().countryCode;
   useEffect(() => {
@@ -21,11 +23,14 @@ function CountryDetails() {
       setcountry(res);
     });
   }, [countryCode]);
-  
 
   return (
     <>
-      <div className="lg:flex lg:flex-col items-center h-screen ">
+      <div
+        className={`lg:flex lg:flex-col items-center h-screen ${
+          newtheme ? "bg-[#1f2d36] text-white" : "bg-white text-black"
+        }`}
+      >
         <Navbar />
 
         <div className=" h-2/3 w-full flex items-center justify-evenly ">
@@ -50,7 +55,7 @@ function CountryDetails() {
                 key={item.cca3}
               >
                 <Link to="/">
-                  <div className="h-12 w-24 flex justify-evenly items-center rounded-lg shadow-md border-2">
+                  <div className="h-12 w-24 flex justify-evenly items-center rounded-lg shadow-md border-2 border-black">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -68,7 +73,7 @@ function CountryDetails() {
                   <img
                     src={countryFlag}
                     alt=""
-                    className="lg:w-3/12 sm:w-4/6"
+                    className="lg:w-3/12 sm:w-4/6 h-52"
                   />
                   <div className=" flex flex-col justify-around my-8">
                     <div className=" font-bold text-xl ">
