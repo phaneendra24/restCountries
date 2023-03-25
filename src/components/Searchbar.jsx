@@ -18,20 +18,20 @@ function Searchbar({ setName, setRegion }) {
       <i className="fas fa-search icon absolute text-black pt-3 pl-2"></i>
 
       <input
-        className={`w-4/6 h-10 pl-10 pr-5 sm:w-2/6  shadow-xl outline-none text-black`}
+        className={`w-5/6 rounded-md h-10 pl-10 pr-5 sm:w-2/6 shadow-md outline-none text-black`}
         onChange={(e) => search_fn(e)}
         placeholder="Search for a country"
       />
       <select
         name="filters "
-        className={`w-36 h-10 shadow-xl 
+        className={` w-16 sm:w-36 h-10 drop-shadow-md 
         ${newtheme ? "bg-[#1f2d36] text-white" : "bg-white text-black"}
         outline-none
          `}
         onChange={(e) => region(e)}
       >
         <option value="obj" className="">
-          Filter by Region
+          Filter
         </option>
         <option value="Africa">Africa</option>
         <option value="Americas">Amercia</option>
